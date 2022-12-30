@@ -8,7 +8,7 @@
     - To do lists should have:
         - Title
         - Description
-        - dueDate
+        - Due date
         - Priority
         - Notes
         - Ability to delete list items
