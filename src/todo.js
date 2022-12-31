@@ -23,6 +23,8 @@ function ToDoList(name, description, dueDate, priority, notes) {
         this.completed = true;
     }
 
+
+
     this.displayList = function() {
         console.log(this.name);
         console.log("Description: " + this.description);
