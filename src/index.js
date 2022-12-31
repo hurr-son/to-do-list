@@ -1,6 +1,7 @@
 import './style.css';
 import { ToDoList } from './todo';
 import { Project } from './project';
+import { createToDoList } from './todo-dom';
 
 
 let sundayChores = new Project("Sunday Chores");
@@ -22,6 +23,18 @@ houseChores.addItem("Vacuum the apartment");
 
 sundayChores.addList(groceryList);
 sundayChores.addList(houseChores);
-sundayChores.removeList(groceryList)
 sundayChores.displayLists()
 
+
+
+// To render a single list, do this
+createToDoList(groceryList);
+
+
+// To render all lists in a project, do this
+sundayChores.todoLists.forEach(list => {
+    createToDoList(list);
+});
+
+
+  
