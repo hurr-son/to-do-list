@@ -1,7 +1,10 @@
 import './style.css';
 import { ToDoList } from './todo';
 import { Projects } from './project';
-import { renderToDoList, renderProject, renderAllProjects } from './todo-dom';
+import { renderToDoList, renderProject, renderAllProjects, renderCreateButton } from './todo-dom';
+
+
+const container = document.querySelector('.lists-container');
 
 const allProjects = new Projects()
 
@@ -28,15 +31,55 @@ houseChores.addItem("Vacuum the apartment");
 
 sundayChores.addList(groceryList);
 sundayChores.addList(houseChores);
-// sundayChores.displayLists()
 
-
-
-// To render a single list, do this
-// createToDoList(groceryList);
+renderProject(sundayChores)
 
 
 // To render all lists in a project, do this
-renderAllProjects(allProjects.projects);
+// renderAllProjects(allProjects.projects);
 
-console.log(allProjects.projects)
+
+function closeModal() {
+    const modal = document.getElementById('create-list-modal')
+    
+    modal.style.display = 'none';
+}
+
+
+function showModal() {
+    const modal = document.getElementById('create-list-modal')
+    modal.style.display = 'block';
+}
+
+const form = document.getElementById('create-list-form');
+
+form.addEventListener("submit", function(event) {
+    event.preventDefault();
+    
+    const formData = new FormData(form);
+    
+    const todoList = new ToDoList(
+        formData.get("name"),
+        formData.get("description"),
+        formData.get("priority"),
+        formData.get("due-date")
+        );
+        
+        console.log(todoList)
+        sundayChores.addList(todoList);
+        container.appendChild(renderToDoList(todoList))
+        
+
+        closeModal();
+    })
+    
+    container.appendChild(renderCreateButton())
+    
+    const createButton = document.querySelector('.create-button');
+    const closeButton = document.querySelector('.close');
+    createButton.addEventListener("click", showModal);
+    closeButton.addEventListener("click", closeModal);
+    
+    
+    
+    
