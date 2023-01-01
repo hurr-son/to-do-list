@@ -21,6 +21,11 @@ li {
 
 /* Modal style */
 
+@keyframes animatetop {
+  from {top: -300px; opacity: 0;}
+  to {top: 0; opacity: 1;}
+}
+
 .modal {
   display: none; 
   position: fixed; 
@@ -35,12 +40,15 @@ li {
 }
 
 .modal-content {
+  position: relative;
   background-color: #fefefe;
   margin: 15% auto; 
   padding: 20px;
   border: 1px solid #888;
   width: fit-content;
   font-size: 1.6rem;
+  animation-name: animatetop;
+  animation-duration: 0.4s;
 }
 
 .modal-content input{
@@ -70,6 +78,7 @@ li {
   text-decoration: none;
   cursor: pointer;
 }
+
 
 .vertical-nav {
     position: fixed;
