@@ -45,20 +45,27 @@ function renderToDoList(list) {
 }
 
 
-function renderProject(project) {
-    const content = document.getElementById('content');
-    
-    const projectCard = document.createElement('div');
-    projectCard.className = 'project-card';
-    const heading = document.createElement('h2')
-    heading.innerHTML = project.name;
-    projectCard.appendChild(heading);
-    content.appendChild(projectCard)
+function renderCreateButton() {
+    const createButton = document.createElement('div');
+    createButton.className = 'create-button';
+    createButton.classList.add('list-card')
+    createButton.innerHTML = '+';
+    return createButton;
+}
 
+
+function renderProject(project) {
+    const container = document.querySelector('.lists-container');
+    const projectTitle = document.querySelector('.project-title');
+    projectTitle.innerHTML = project.name
+
+    console.log(project.todoList);
     project.todoLists.forEach(list => {
-        projectCard.appendChild(renderToDoList(list));
+        container.appendChild(renderToDoList(list));
         
     });
+
+    
 }
 
 
@@ -90,4 +97,4 @@ function renderAllProjects(projects) {
 }
 
 
-export {renderToDoList, renderProject, renderAllProjects};
+export {renderToDoList, renderProject, renderAllProjects, renderCreateButton};
