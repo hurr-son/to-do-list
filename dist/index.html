@@ -8,25 +8,65 @@
     <title>To-Do List</title>
 </head>
 <body>
-    
+  <nav class="vertical-nav">
+      <ul>
+        <li><a href="#">Projects</a></li>
+      </ul>
+    </nav>
+    <nav class="horizontal-nav">
+      <ul>
+        <li><h1>I've got stuff to do</h1></li>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+    <h3 class="project-title">project title</h3>
     <div id="content"></div>
-    <nav class="vertical-nav">
-        <ul>
-          <li><a href="#">Projects</a></li>
-          <li><a href="#">Today</a></li>
-          <li><a href="#">Upcoming</a></li>
-          <li><a href="#">Anytime</a></li>
-          <li><a href="#">Someday</a></li>
-        </ul>
-      </nav>
-      <nav class="horizontal-nav">
-        <ul>
-          <li><h1>I've got stuff to do</h1></li>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-      </nav>
+    
+      <div class="lists-container project">
+        <div class="list-card">
+            <h3>Title</h3>
+            <span>Description: Things that I really need to do.</span>
+            <span>Due: XX-XX-XXXX</span>
+            <span>Priority: Low-High</span>
+            <ul>
+              <li><input type= "checkbox">Take the trash out<li>
+              <li><input type= "checkbox">Call Mom</li>
+              <li><input type= "checkbox">Pay phone bill</li>
+            </ul>
+        </div>
+      </div>
+      <!-- Modal element -->
+        <div id="create-list-modal" class="modal">
+          <!-- Modal content -->
+          <div class="modal-content">
+            <!-- Close button -->
+            <span class="close">&times;</span>
+            <!-- Form element -->
+            <form id="create-list-form">
+              <!-- Name input field -->
+              <label for="name">Name:</label>
+              <input type="text" id="name" name="name" required>        
+              <label for="description">Description:</label>
+              <textarea id="description" name="description"></textarea>
+              <label for="priority">Priority:</label>
+              <input type="text" id="priority" name="priority">
+              <!-- Due date input field -->
+              <label for="due-date">Due date:</label>
+              <input type="date" id="due-date" name="due-date">
+              <!-- <form  id="list-item-form">
+                <label for="item-name">Item Name:</label>
+                <input type="text" id="item-name"   name="item-name">
+                <button type="button">Add Item</button>
+              </form> -->
+              <!-- Submit button -->
+              <input type="submit" value="Create">
+            </form>
+          </div>
+        </div>
+
+
+
       
 </body>
 </html>
