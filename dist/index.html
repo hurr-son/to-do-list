@@ -25,14 +25,15 @@
     
       <div class="lists-container project">
         <div class="list-card">
-            <h3>Title</h3>
+          <span class="close-list">&times;</span>
+          <h3 class="list-title">Title</h3>
             <span>Description: Things that I really need to do.</span>
             <span>Due: XX-XX-XXXX</span>
             <span>Priority: Low-High</span>
-            <ul>
-              <li><input type= "checkbox">Take the trash out<li>
-              <li><input type= "checkbox">Call Mom</li>
-              <li><input type= "checkbox">Pay phone bill</li>
+            <ul class="list-items">
+              <li>Call Mom</li>
+              <li>Take out the trash</li>
+              <li>Dinner at 5pm</li>
             </ul>
         </div>
       </div>
@@ -41,7 +42,7 @@
           <!-- Modal content -->
           <div class="modal-content">
             <!-- Close button -->
-            <span class="close">&times;</span>
+            <span class="close-modal">&times;</span>
             <!-- Form element -->
             <form id="create-list-form">
               <!-- Name input field -->
