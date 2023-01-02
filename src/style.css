@@ -9,6 +9,10 @@ li {
     list-style: none;
 }
 
+.list-items li{
+  list-style: circle;
+}
+
 .lists-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -18,6 +22,7 @@ li {
   margin-top: 70px;
   
 }
+
 
 /* Modal style */
 
@@ -33,7 +38,7 @@ li {
   left: 0;
   top: 0;
   width: 100%;
-  height: 100%;
+  
   overflow: auto;
   background-color: rgb(0,0,0);
   background-color: rgba(0,0,0,0.4);
@@ -61,19 +66,19 @@ li {
   gap: 1rem;
 }
 #create-list-form textarea{
-    resize: none;
-    font-size: 1.1rem;
+  resize: none;
+  font-size: 1.1rem;
 }
 
 
-.close {
+.close-modal {
   float: right;
   font-weight: bold;
   font-size: 1.5rem;
 }
 
-.close:hover,
-.close:focus {
+.close-modal:hover,
+.close-modal:active {
   color: #888;
   text-decoration: none;
   cursor: pointer;
@@ -81,61 +86,61 @@ li {
 
 
 .vertical-nav {
-    position: fixed;
-    float: left;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    min-width: 6.5rem;
-    margin-top: 58px;
-    background-color: #333;
-    color: #fff;
-  }
-  
-  .vertical-nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .vertical-nav li {
-    width: 100%;
-  }
-  
-  .vertical-nav a {
-    display: block;
-    padding: 20px;
-    color: #fff;
-    text-decoration: none;
-  }
-  
-  .vertical-nav a:hover {
-    background-color: #444;
-  }
-  
+  position: fixed;
+  float: left;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  min-width: 6.5rem;
+  margin-top: 58px;
+  background-color: #333;
+  color: #fff;
+}
 
-  
-  .horizontal-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    background-color: #333;
-    color: #fff;
-  }
-  
-  .horizontal-nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: space-between;
-  }
-  
+.vertical-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.vertical-nav li {
+  width: 100%;
+}
+
+.vertical-nav a {
+  display: block;
+  padding: 20px;
+  color: #fff;
+  text-decoration: none;
+}
+
+.vertical-nav a:hover {
+  background-color: #444;
+}
+
+
+
+.horizontal-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #333;
+  color: #fff;
+}
+
+.horizontal-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
   .horizontal-nav li {
     width: 100%;
   }
-
+  
   
   
   .horizontal-nav a {
@@ -148,27 +153,49 @@ li {
   .horizontal-nav a:hover {
     background-color: #444;
   }
-
+  
   nav h1 {
     font-size: 20px;
   }
   
-.list-card {
+ .list-title {
+    margin: 0;
+    padding-bottom: 1rem;
+  }
+
+ 
+
+  .list-card {
     display: flex;
     flex-direction: column;
     border: 1px solid black;
     border-radius: 7px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     padding: 1rem;
-}
+  }
+  
+  .close-list {
+    align-self: flex-end;
+    font-weight: bold;
+    font-size: 1.5rem;
+  }
+  
+  .close-list:hover,
+  .close-list:active {
+    color: #888;
+    text-decoration: none;
+    cursor: pointer;
+  } 
 
-.create-button {
-  text-align: center;
-  font-size: 12rem;
-}
-.create-button:hover {
-  background-color: rgb(203, 203, 203);
-}
-.create-button:active {
-  background-color: rgb(153, 153, 153);
+  .create-button {
+    text-align: center;
+    font-size: 12rem;
+  }
+  .create-button:hover,
+  .list-card:hover {
+    background-color: rgb(203, 203, 203);
+  }
+  .create-button:active,
+  .list-card:active {
+    background-color: rgb(153, 153, 153);
 }
