@@ -4,7 +4,16 @@ function renderToDoList(list) {
     
     const listCard = document.createElement('div');
     listCard.className = 'list-card'
+    listCard.id = list.id
+
+    const closeButton = document.createElement('span');
+    closeButton.innerHTML = '&times;';
+    closeButton.className = 'close-list';
+    closeButton.id = list.id
+
+    listCard.appendChild(closeButton);
     const heading = document.createElement('h3');
+    heading.className = 'list-title';
     heading.innerHTML = list.name;
     listCard.appendChild(heading);
 
@@ -21,22 +30,19 @@ function renderToDoList(list) {
     listCard.appendChild(prioritySpan);
 
     const ul = document.createElement("ul");
+    ul.className = 'list-items'
     
     list.items.forEach(function(item) {
 
         const li = document.createElement('li');
 
-        const checkbox = document.createElement('input');
-        checkbox.type = 'checkbox';
-        checkbox.addEventListener('change', function() {
-            list.setCompleted(item, this.checked);
-        });
+        const itemLi = document.createElement('li');
+        
 
-        const label = document.createElement('label');
-        label.innerHTML = item;
+        itemLi.innerHTML = item;
 
-        li.appendChild(checkbox);
-        li.appendChild(label);
+        li.appendChild(itemLi);
+        
         ul.appendChild(li);
 
     });
@@ -59,8 +65,8 @@ function renderProject(project) {
     const projectTitle = document.querySelector('.project-title');
     projectTitle.innerHTML = project.name
 
-    console.log(project.todoList);
     project.todoLists.forEach(list => {
+        
         container.appendChild(renderToDoList(list));
         
     });
@@ -92,6 +98,20 @@ function renderAllProjects(projects) {
         projectsWrapper.appendChild(list);
         content.appendChild(projectsWrapper);
     })
+
+
+}
+
+function removeListCard(e) {
+    if(!e.target.classList.contains('close-list')) {
+        return;
+    }
+        const btn = e.target;
+        const listId = btn.closest('div').id;
+        const currentProject = get
+        btn.closest('div').remove()
+        
+
 
 
 }
