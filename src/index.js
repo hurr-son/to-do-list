@@ -82,7 +82,7 @@ form.addEventListener("submit", function(event) {
 
         closeModal();
         const listCard = document.querySelector('.list-card')
-        createButton.insertAdjacentElement('afterend', listCard)
+        listCard.insertAdjacentElement('afterend', createButton)
         
     })
     
