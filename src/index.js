@@ -45,6 +45,8 @@ function closeModal() {
     modal.style.display = 'none';
 }
 
+container.appendChild(renderCreateButton())
+const createButton = document.querySelector('.create-button');
 
 function showModal() {
     const modal = document.getElementById('create-list-modal')
@@ -54,6 +56,8 @@ function showModal() {
 const form = document.getElementById('create-list-form');
 
 form.addEventListener("submit", function(event) {
+    const itemInputs = document.getElementsByClassName('item');
+    
     event.preventDefault();
     
     const formData = new FormData(form);
@@ -65,17 +69,24 @@ form.addEventListener("submit", function(event) {
         formData.get("due-date")
         );
         
-        console.log(todoList)
         sundayChores.addList(todoList);
-        container.appendChild(renderToDoList(todoList))
         
+        for (let input of itemInputs) {
+            if (input.value !== '') {
+                todoList.addItem(input.value);
+                
+            }
+        }
+        
+        container.appendChild(renderToDoList(todoList))
 
         closeModal();
+        const listCard = document.querySelector('.list-card')
+        createButton.insertAdjacentElement('afterend', listCard)
+        
     })
     
-    container.appendChild(renderCreateButton())
     
-    const createButton = document.querySelector('.create-button');
     const closeButton = document.querySelector('.close');
     createButton.addEventListener("click", showModal);
     closeButton.addEventListener("click", closeModal);
