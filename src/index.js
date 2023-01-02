@@ -1,7 +1,7 @@
 import './style.css';
 import { ToDoList } from './todo';
-import { Projects } from './project';
-import { renderToDoList, renderProject, renderAllProjects, renderCreateButton } from './todo-dom';
+import { Projects, CurrentProject } from './project';
+import { renderToDoList, renderProject, renderAllProjects, renderCreateButton} from './todo-dom';
 
 
 const container = document.querySelector('.lists-container');
@@ -81,16 +81,39 @@ form.addEventListener("submit", function(event) {
         container.appendChild(renderToDoList(todoList))
 
         closeModal();
-        const listCard = document.querySelector('.list-card')
-        listCard.insertAdjacentElement('afterend', createButton)
+       
+        console.log(sundayChores)
         
     })
     
     
-    const closeButton = document.querySelector('.close');
+    
+    const closeButton = document.querySelector('.close-modal');
+    const removeButton = document.querySelector('.close-list')
+    let selectedProject = document.querySelector('.project');
     createButton.addEventListener("click", showModal);
     closeButton.addEventListener("click", closeModal);
+
+
+    let currentProject = new CurrentProject
+    currentProject.setCurrentProject(sundayChores)
+
+    function removeListCard(e) {
+        let project = currentProject.getCurrentProject()
+        if(!e.target.classList.contains('close-list')) {
+            return;
+        }
+            const btn = e.target;
+            const listId = parseInt(btn.closest('div').id, 10);
+            project.removeList(listId)
+           
+            btn.closest('div').remove();
+            console.log(sundayChores.todoLists)
+            
     
+    }
+
+    selectedProject.addEventListener("click", removeListCard)
     
     
     
