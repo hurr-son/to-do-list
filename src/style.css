@@ -14,7 +14,7 @@ li {
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-auto-rows: 1fr;
   gap: 1rem;
-  margin-left: 212px;
+  margin-left: 6.5rem;
   margin-top: 70px;
   
 }
@@ -86,7 +86,7 @@ li {
     left: 0;
     top: 0;
     bottom: 0;
-    width: 200px;
+    min-width: 6.5rem;
     margin-top: 58px;
     background-color: #333;
     color: #fff;
@@ -164,7 +164,7 @@ li {
 
 .create-button {
   text-align: center;
-  font-size: 15rem;
+  font-size: 12rem;
 }
 .create-button:hover {
   background-color: rgb(203, 203, 203);
