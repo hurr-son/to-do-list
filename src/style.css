@@ -24,6 +24,7 @@ li {
 }
 
 
+
 /* Modal style */
 
 @keyframes animatetop {
@@ -38,13 +39,14 @@ li {
   left: 0;
   top: 0;
   width: 100%;
-  
+  height: 100%;
   overflow: auto;
   background-color: rgb(0,0,0);
   background-color: rgba(0,0,0,0.4);
 }
 
-.modal-content {
+.modal-content,
+.project-modal-content {
   position: relative;
   background-color: #fefefe;
   margin: 15% auto; 
@@ -56,7 +58,8 @@ li {
   animation-duration: 0.4s;
 }
 
-.modal-content input{
+.modal-content input,
+.project-modal-content input{
   font-size: 1.5rem;
 }
 
@@ -165,7 +168,9 @@ li {
 
  
 
-  .list-card {
+  .list-card,
+  .project-card,
+  .create-button {
     display: flex;
     flex-direction: column;
     border: 1px solid black;
@@ -173,6 +178,8 @@ li {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     padding: 1rem;
   }
+
+  
   
   .close-list {
     align-self: flex-end;
@@ -188,14 +195,17 @@ li {
   } 
 
   .create-button {
+    
     text-align: center;
     font-size: 12rem;
   }
   .create-button:hover,
-  .list-card:hover {
+  .list-card:hover,
+  .project-card:hover {
     background-color: rgb(203, 203, 203);
   }
   .create-button:active,
-  .list-card:active {
+  .list-card:active,
+  .project-card:active {
     background-color: rgb(153, 153, 153);
 }
