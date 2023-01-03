@@ -27,17 +27,33 @@ class Projects {
       };
     }
     }
-  
+
+    setProject(project) {
+      this.currentProject = new CurrentProject;
+      this.currentProject.setCurrentProject(project);
+
+    }
+
     addProject(project) {
+      project.id = this.projects.length;
       this.projects.push(project);
     }
   
-    removeProject(project) {
-      let index = this.projects.indexOf(project);
-      if (index > -1) {
-        this.projects.splice(index, 1);
+    removeProject(id) {
+      let index = -1
+      for (let i = 0; i < this.projects.length; i++) {
+        if (this.projects[i].id === id) {
+          index = i
+          break
+        }
       }
+      if (index > -1) {
+        this.projects.splice(index, 1)
+        
+      }
+      
     }
+    
   
     displayProjects() {
       console.log("Projects:");
@@ -54,6 +70,7 @@ class Projects {
 
     setCurrentProject(project) {
       this.currentProject = project;
+  
     }
 
     getCurrentProject() {
