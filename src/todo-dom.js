@@ -54,7 +54,7 @@ function renderToDoList(list) {
 function renderCreateButton() {
     const createButton = document.createElement('div');
     createButton.className = 'create-button';
-    createButton.classList.add('list-card')
+    
     createButton.innerHTML = '+';
     return createButton;
 }
@@ -76,16 +76,25 @@ function renderProject(project) {
 
 
 function renderAllProjects(projects) {
-    const content = document.getElementById('content');
+    const projectContainer = document.querySelector('.project-container');
     
-    const projectsWrapper = document.createElement('div');
-    projectsWrapper.className = 'projects-wrapper';
-
+    
     projects.forEach(function(project) {
+        const projectsWrapper = document.createElement('div');
+        projectsWrapper.className = 'project-card';
+        projectsWrapper.id = project.id
+        const closeButton = document.createElement('span');
+        closeButton.innerHTML = '&times;';
+        closeButton.className = 'close-list';
+       
+        
         const heading = document.createElement('h3');
         heading.innerHTML = project.name;
 
         const list = document.createElement('ul');
+        projectsWrapper.appendChild(closeButton);
+        projectsWrapper.appendChild(heading);
+        projectsWrapper.appendChild(list);
 
         project.todoLists.forEach(function(todoList) {
             const listItem = document.createElement('li');
@@ -93,28 +102,10 @@ function renderAllProjects(projects) {
         
             list.appendChild(listItem);
         })
-        
-        projectsWrapper.appendChild(heading);
-        projectsWrapper.appendChild(list);
-        content.appendChild(projectsWrapper);
+        projectContainer.appendChild(projectsWrapper);
     })
 
 
 }
-
-function removeListCard(e) {
-    if(!e.target.classList.contains('close-list')) {
-        return;
-    }
-        const btn = e.target;
-        const listId = btn.closest('div').id;
-        const currentProject = get
-        btn.closest('div').remove()
-        
-
-
-
-}
-
 
 export {renderToDoList, renderProject, renderAllProjects, renderCreateButton};
