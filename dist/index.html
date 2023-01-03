@@ -10,7 +10,7 @@
 <body>
   <nav class="vertical-nav">
       <ul>
-        <li><a href="#">Projects</a></li>
+        <li><a href="#" id="projects">Projects</a></li>
       </ul>
     </nav>
     <nav class="horizontal-nav">
@@ -23,8 +23,8 @@
     <h3 class="project-title">project title</h3>
     <div id="content"></div>
     
-      <div class="lists-container project">
-        <div class="list-card">
+      <div class="lists-container project project-container">
+        <div class="list-card default-card">
           <span class="close-list">&times;</span>
           <h3 class="list-title">Title</h3>
             <span>Description: Things that I really need to do.</span>
@@ -37,7 +37,7 @@
             </ul>
         </div>
       </div>
-      <!-- Modal element -->
+      <!-- Modal element for todo list creation -->
         <div id="create-list-modal" class="modal">
           <!-- Modal content -->
           <div class="modal-content">
@@ -62,6 +62,23 @@
                 <input type="text"  class="item"  name="item-name">
                 <input type="text"  class="item"  name="item-name">
               
+              
+              <!-- Submit button -->
+              <input type="submit" value="Create">
+            </form>
+          </div>
+        </div>
+      <!-- Modal element for project creation -->
+        <div id="create-project-modal" class="modal project-modal">
+          <!-- Modal content -->
+          <div class="project-modal-content">
+            <!-- Close button -->
+            <span class="close-modal">&times;</span>
+            <!-- Form element -->
+            <form id="create-project-form">
+              <!-- Name input field -->
+              <label for="name">Name:</label>
+              <input type="text" id="name" name="name" required>   
               
               <!-- Submit button -->
               <input type="submit" value="Create">
