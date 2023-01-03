@@ -18,7 +18,7 @@ let groceryList = new ToDoList("Groceries", "List for Sunday grocery run", "01-0
 groceryList.addItem("Eggs");
 groceryList.addItem("Bread");
 groceryList.addItem("Milk");
-// groceryList.removeItem("Eggs");
+
 
 
 
@@ -29,29 +29,75 @@ houseChores.addItem("Clean the bathroom");
 houseChores.addItem("Vacuum the apartment");
 
 
+let mondayHomework = new ToDoList("monHW", "", "", "", "");
+
+
 sundayChores.addList(groceryList);
 sundayChores.addList(houseChores);
 
+homework.addList(mondayHomework)
+homework.addList(mondayHomework)
+
+
+function hideDefaultCard() {
+    const defaultCard = document.querySelector(".default-card");
+    defaultCard.style.display = 'none'
+}
+
+
 renderProject(sundayChores)
 
+allProjects.setProject(sundayChores)
 
-// To render all lists in a project, do this
-// renderAllProjects(allProjects.projects);
+console.log(allProjects.currentProject)
+
+const projectsButton = document.getElementById('projects')
+
+function hideProjectLists() {
+    const projectLists = document.getElementsByClassName('list-card')
+    for (let list of projectLists) {
+        list.style.display = 'none'
+    }
+}
 
 
-function closeModal() {
-    const modal = document.getElementById('create-list-modal')
+
+
+projectsButton.addEventListener('click', function() {
+    const createButton = document.querySelector('.create-button');
+    createButton.addEventListener('click', showProjectModal)
     
-    modal.style.display = 'none';
+    closeModal()
+    hideProjectLists()
+    hideDefaultCard()
+    renderAllProjects(allProjects.projects);
+    renderCreateButton()
+    
+
+})
+
+
+function closeModal()  {   
+    const closeModalButtons = document.getElementsByClassName('close-modal')
+    for (let i = 0; i < closeModalButtons.length; i++) {
+        closeModalButtons[i].addEventListener('click', function() {
+        const modal = this.parentNode.parentNode
+        modal.style.display = 'none'
+  })}
 }
 
 container.appendChild(renderCreateButton())
 const createButton = document.querySelector('.create-button');
 
-function showModal() {
+function showListModal() {
     const modal = document.getElementById('create-list-modal')
     modal.style.display = 'block';
 }
+function showProjectModal() {
+    const modal = document.getElementById('create-project-modal')
+    modal.style.display = 'block';
+}
+
 
 const form = document.getElementById('create-list-form');
 
@@ -79,41 +125,62 @@ form.addEventListener("submit", function(event) {
         }
         
         container.appendChild(renderToDoList(todoList))
-
+        
         closeModal();
-       
+        
         console.log(sundayChores)
         
     })
     
-    
+    function openProject(e) {
+
+        if(!e.target.classList.contains('project-card')) {
+            return
+        };
+            const projectCards = document.getElementsByClassName('project-card');
+            for (let card of projectCards) {
+                card.style.display = 'none';
+            }
+            let index = e.target.id;
+            renderProject(allProjects.projects[index])
+            allProjects.setProject(allProjects.projects[index])
+
+    }
+   
     
     const closeButton = document.querySelector('.close-modal');
     const removeButton = document.querySelector('.close-list')
     let selectedProject = document.querySelector('.project');
-    createButton.addEventListener("click", showModal);
-    closeButton.addEventListener("click", closeModal);
-
-
-    let currentProject = new CurrentProject
-    currentProject.setCurrentProject(sundayChores)
-
+    let projectsContainer = document.querySelector('.project-container');
+    // createButton.addEventListener("click", showListModal);
+    
+    
+    
+    
     function removeListCard(e) {
-        let project = currentProject.getCurrentProject()
+
         if(!e.target.classList.contains('close-list')) {
             return;
         }
+
+            if(e.target.closest('div').classList.contains('list-card')) {
+
             const btn = e.target;
             const listId = parseInt(btn.closest('div').id, 10);
-            project.removeList(listId)
-           
+            allProjects.currentProject.getCurrentProject().removeList(listId);
             btn.closest('div').remove();
-            console.log(sundayChores.todoLists)
-            
-    
+            console.log(sundayChores.todoLists);
+            }
+
+            else if(e.target.closest('div').classList.contains('project-card')) {
+                const btn = e.target;
+                const projectId = parseInt(btn.closest('div').id, 10);
+                allProjects.removeProject(projectId)
+                btn.closest('div').remove();
+                console.log(allProjects.projects)
+            }    
     }
 
     selectedProject.addEventListener("click", removeListCard)
     
-    
-    
+    projectsContainer.addEventListener('click', openProject)
