@@ -6,6 +6,8 @@ function renderToDoList(list) {
     listCard.className = 'list-card'
     listCard.id = list.id
 
+    
+
     const closeButton = document.createElement('span');
     closeButton.innerHTML = '&times;';
     closeButton.className = 'close-list';
@@ -70,7 +72,7 @@ function renderCreateButton() {
 function renderProject(project) {
     const container = document.querySelector('.lists-container');
     const projectTitle = document.querySelector('.project-title');
-    projectTitle.innerHTML = project.name
+    projectTitle.innerHTML = project.name;
 
     project.todoLists.forEach(list => {
         
