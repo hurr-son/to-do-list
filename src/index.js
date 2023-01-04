@@ -64,6 +64,7 @@ addItemButton.addEventListener('click', function() {
 
     const newLabel = document.createElement('label');
     newLabel.htmlFor = newInput.id;
+    newLabel.className = 'label';
     newLabel.innerHTML = `Item ${numInputs + 1}`;
 
     itemInputsContainer.appendChild(newLabel);
@@ -135,7 +136,10 @@ function showProjectModal() {
     modal.style.display = 'block';
 }
 const createButton = document.querySelector('.create-button');
+
+
 createButton.addEventListener('click', function() {
+    
     if(isProject) {
         showListModal();
     } else {
@@ -150,7 +154,7 @@ const form = document.getElementById('create-list-form');
 form.addEventListener("submit", function(event) {
     const modal = document.querySelector('.modal');
     const itemInputs = document.getElementsByClassName('item');
-    
+    const itemLabels = document.getElementsByClassName('label');
     event.preventDefault();
     
     const formData = new FormData(form);
@@ -158,24 +162,31 @@ form.addEventListener("submit", function(event) {
     const todoList = new ToDoList(
         formData.get("name"),
         formData.get("description"),
-        formData.get("priority"),
-        formData.get("due-date")
+        formData.get("due-date"),
+        formData.get("priority")
         );
         
-        sundayChores.addList(todoList);
+        allProjects.currentProject.getCurrentProject().addList(todoList);
         
         for (let input of itemInputs) {
             if (input.value !== '') {
                 todoList.addItem(input.value);
+                console.log(input)
+               
                 
             }
         }
-        
+
         container.appendChild(renderToDoList(todoList))
-        
+
         modal.style.display = 'none'
         
-
+        for (let i = itemLabels.length - 1; i > 0; i--) {
+            itemLabels[i].remove();
+            itemInputs[i].remove();
+        }
+        
+        form.reset();
     })
 
 
@@ -197,6 +208,7 @@ form.addEventListener("submit", function(event) {
             let index = e.target.id;
             renderProject(allProjects.projects[index])
             allProjects.setProject(allProjects.projects[index])
+            console.log(allProjects.currentProject)
 
     }
 
@@ -211,19 +223,14 @@ projectForm.addEventListener('submit', function(event) {
       
       const project = new allProjects.Project(formData.get('name'));
       allProjects.addProject(project);
+      console.log(allProjects.projects)
     
       renderProjectInput(project);
     
       modal.style.display = 'none';  
-    });
-    
-    
-    
 
-    // // createButton.addEventListener("click", showListModal);
-    // createButton.addEventListener("click", showProjectModal);
-    
-    
+      projectForm.reset();
+    });
     
     
     function removeListCard(e) {
