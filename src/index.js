@@ -71,6 +71,21 @@ addItemButton.addEventListener('click', function() {
 })
 
 
+
+const editModal = document.getElementById('edit-list-modal');
+
+function editList(e) {
+    if(!e.target.classList.contains('edit-button')) {
+        return
+    }
+
+    const btn = e.target
+    btn.addEventListener("click", function(e) {
+        editModal.style.display = 'block'
+    })
+    
+}
+
 function hideDefaultCard() {
     const defaultCard = document.querySelector(".default-card");
     defaultCard.style.display = 'none'
@@ -238,6 +253,7 @@ projectForm.addEventListener('submit', function(event) {
     let selectedProject = document.querySelector('.project');
     let projectsContainer = document.querySelector('.project-container');
     selectedProject.addEventListener("click", removeListCard)
+    selectedProject.addEventListener("click", editList)
     projectsContainer.addEventListener('click', openProject)
 
 })()
