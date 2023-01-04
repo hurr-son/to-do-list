@@ -31,22 +31,29 @@ function renderToDoList(list) {
 
     const ul = document.createElement("ul");
     ul.className = 'list-items'
+
+    
     
     list.items.forEach(function(item) {
-
+        
         const li = document.createElement('li');
-
+        
         const itemLi = document.createElement('li');
         
-
+        
         itemLi.innerHTML = item;
-
+        
         li.appendChild(itemLi);
         
         ul.appendChild(li);
-
+        
     });
     listCard.appendChild(ul);
+    const editButton = document.createElement('button');
+    editButton.type = 'button';
+    editButton.className = 'edit-button';
+    editButton.innerHTML = 'Edit'
+    listCard.appendChild(editButton)
     return listCard;
 }
 
