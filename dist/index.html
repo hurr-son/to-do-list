@@ -10,14 +10,13 @@
 <body>
   <nav class="vertical-nav">
       <ul>
-        <li><a href="#" id="projects">Projects</a></li>
       </ul>
     </nav>
     <nav class="horizontal-nav">
       <ul>
         <li><h1>I've got stuff to do</h1></li>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><a href="#" id="projects">Projects</a></li>
+        
       </ul>
     </nav>
     <h3 class="project-title">project title</h3>
@@ -50,17 +49,31 @@
               <input type="text" id="name" name="name" required>        
               <label for="description">Description:</label>
               <textarea id="description" name="description"></textarea>
+              <!-- Radio buttons for the priority element -->
               <label for="priority">Priority:</label>
-              <input type="text" id="priority" name="priority">
+              
+              <input type="radio" id="anytime" name="priority" value="Anytime" checked>
+              <label for="anytime">Anytime</label>
+              
+              <input type="radio" id="can-wait" name="priority" value="Can wait">
+              <label for="can-wait">Can wait</label>
+              
+              <input type="radio" id="today" name="priority" value="Today">
+              <label for="today">Today</label>
+              
+              <input type="radio" id="immediately" name="priority" value="Immediately">
+              <label for="immediately">Immediately</label>
+
               <!-- Due date input field -->
               <label for="due-date">Due date:</label>
               <input type="date" id="due-date" name="due-date">
               
-                <label for="items">Items: </label>
+              <div id="add-item-input">
+                <label for="items">Item 1</label>
                 <input type="text"  class="item"  name="item-name">
-                <input type="text"  class="item"  name="item-name">
-                <input type="text"  class="item"  name="item-name">
-                <input type="text"  class="item"  name="item-name">
+              </div>
+              
+              <button type="button" id="add-item-button">Add item</button>
               
               
               <!-- Submit button -->
