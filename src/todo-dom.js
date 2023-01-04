@@ -74,6 +74,35 @@ function renderProject(project) {
     
 }
 
+function renderProjectInput(project) {
+    const projectContainer = document.querySelector('.project-container');
+    
+    const projectsWrapper = document.createElement('div');
+    projectsWrapper.className = 'project-card';
+    projectsWrapper.id = project.id;
+    
+    const closeButton = document.createElement('span');
+    closeButton.innerHTML = '&times;';
+    closeButton.className = 'close-list';
+    
+    const heading = document.createElement('h3');
+    heading.innerHTML = project.name;
+    
+    const list = document.createElement('ul');
+    projectsWrapper.appendChild(closeButton);
+    projectsWrapper.appendChild(heading);
+    projectsWrapper.appendChild(list);
+    
+    project.todoLists.forEach(function(todoList) {
+      const listItem = document.createElement('li');
+      listItem.innerHTML = todoList.name;
+    
+      list.appendChild(listItem);
+    })
+    projectContainer.appendChild(projectsWrapper);
+  }
+  
+
 
 function renderAllProjects(projects) {
     const projectContainer = document.querySelector('.project-container');
@@ -108,4 +137,4 @@ function renderAllProjects(projects) {
 
 }
 
-export {renderToDoList, renderProject, renderAllProjects, renderCreateButton};
+export {renderToDoList, renderProject, renderAllProjects, renderCreateButton, renderProjectInput};
