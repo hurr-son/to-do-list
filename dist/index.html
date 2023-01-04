@@ -34,7 +34,8 @@
               <li>Take out the trash</li>
               <li>Dinner at 5pm</li>
             </ul>
-        </div>
+            <button type="button" class="edit-button">Edit</button>
+          </div>
       </div>
       <!-- Modal element for todo list creation -->
         <div id="create-list-modal" class="modal">
@@ -78,6 +79,51 @@
               
               <!-- Submit button -->
               <input type="submit" value="Create">
+            </form>
+          </div>
+        </div>
+        <!-- Modal element for todo list editing -->
+        <div id="edit-list-modal" class="modal">
+          <!-- Modal content -->
+          <div class="modal-content">
+            <!-- Close button -->
+            <span class="close-modal">&times;</span>
+            <!-- Form element -->
+            <form id="edit-list-form">
+              <!-- Name input field -->
+              <label for="name">Name:</label>
+              <input type="text" id="edit-name" name="name" required>        
+              <label for="description">Description:</label>
+              <textarea id="edit-description" name="description"></textarea>
+              <!-- Radio buttons for the priority element -->
+              <label for="priority">Priority:</label>
+              
+              <input type="radio" id="edit-anytime" name="priority" value="Anytime" checked>
+              <label for="anytime">Anytime</label>
+              
+              <input type="radio" id="edit-can-wait" name="priority" value="Can wait">
+              <label for="can-wait">Can wait</label>
+              
+              <input type="radio" id="edit-today" name="priority" value="Today">
+              <label for="today">Today</label>
+              
+              <input type="radio" id="edit-immediately" name="priority" value="Immediately">
+              <label for="immediately">Immediately</label>
+
+              <!-- Due date input field -->
+              <label for="due-date">Due date:</label>
+              <input type="date" id="edit-due-date" name="due-date">
+              
+              <div id="add-item-input">
+                <label for="items">Item 1</label>
+                <input type="text"  class="item"  name="item-name">
+              </div>
+              
+              <button type="button" id="add-item-button">Add item</button>
+              
+              
+              <!-- Submit button -->
+              <input type="submit" value="Update">
             </form>
           </div>
         </div>
