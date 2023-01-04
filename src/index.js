@@ -75,6 +75,9 @@ addItemButton.addEventListener('click', function() {
 
 const editModal = document.getElementById('edit-list-modal');
 
+
+
+
 function editList(e) {
     if(!e.target.classList.contains('edit-button')) {
         return
@@ -258,9 +261,9 @@ projectForm.addEventListener('submit', function(event) {
     }
     
     let selectedProject = document.querySelector('.project');
-    let projectsContainer = document.querySelector('.project-container');
+    
     selectedProject.addEventListener("click", removeListCard)
     selectedProject.addEventListener("click", editList)
-    projectsContainer.addEventListener('click', openProject)
+    selectedProject.addEventListener('click', openProject)
 
 })()
