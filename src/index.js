@@ -1,7 +1,11 @@
 import './style.css';
 import { ToDoList } from './todo';
 import { Projects, CurrentProject } from './project';
-import { renderToDoList, renderProject, renderAllProjects, renderCreateButton} from './todo-dom';
+import { renderToDoList, renderProject, renderAllProjects, renderCreateButton, renderProjectInput} from './todo-dom';
+
+(function(){
+let isProject = true
+let isProjects = false
 
 
 const container = document.querySelector('.lists-container');
@@ -39,19 +43,38 @@ homework.addList(mondayHomework)
 homework.addList(mondayHomework)
 
 
-function hideDefaultCard() {
-    const defaultCard = document.querySelector(".default-card");
-    defaultCard.style.display = 'none'
-}
 
 
 renderProject(sundayChores)
 
 allProjects.setProject(sundayChores)
 
-console.log(allProjects.currentProject)
 
-const projectsButton = document.getElementById('projects')
+const addItemButton = document.getElementById('add-item-button');
+
+addItemButton.addEventListener('click', function() {
+    const itemInputsContainer = document.getElementById('add-item-input');
+
+    const numInputs = itemInputsContainer.getElementsByTagName('input').length;
+
+    const newInput = document.createElement('input');
+    newInput.type = 'text';
+    newInput.className = 'item';
+    newInput.name = `item-${numInputs + 1}`;
+
+    const newLabel = document.createElement('label');
+    newLabel.htmlFor = newInput.id;
+    newLabel.innerHTML = `Item ${numInputs + 1}`;
+
+    itemInputsContainer.appendChild(newLabel);
+    itemInputsContainer.appendChild(newInput);
+})
+
+
+function hideDefaultCard() {
+    const defaultCard = document.querySelector(".default-card");
+    defaultCard.style.display = 'none'
+}
 
 function hideProjectLists() {
     const projectLists = document.getElementsByClassName('list-card')
@@ -60,34 +83,33 @@ function hideProjectLists() {
     }
 }
 
+const projectsButton = document.getElementById('projects');
 
-
-
-projectsButton.addEventListener('click', function() {
-    const createButton = document.querySelector('.create-button');
-    createButton.addEventListener('click', showProjectModal)
-    
-    closeModal()
-    hideProjectLists()
-    hideDefaultCard()
-    renderAllProjects(allProjects.projects);
-    renderCreateButton()
-    
-
-})
-
-
-function closeModal()  {   
-    const closeModalButtons = document.getElementsByClassName('close-modal')
-    for (let i = 0; i < closeModalButtons.length; i++) {
-        closeModalButtons[i].addEventListener('click', function() {
-        const modal = this.parentNode.parentNode
-        modal.style.display = 'none'
-  })}
+function handleClick() {
+  isProject = false;
+  isProjects = true;
+  hideProjectLists();
+  hideDefaultCard();
+  renderAllProjects(allProjects.projects);
+  renderCreateButton();
+  projectsButton.removeEventListener('click', handleClick);
 }
 
+projectsButton.addEventListener('click', handleClick);
+
+ 
+    document.addEventListener('click', function(event) {
+      if (event.target.matches('.close-modal')) {
+        const modal = event.target.parentNode.parentNode;
+        modal.style.display = 'none';
+      }
+    });
+
+
+
 container.appendChild(renderCreateButton())
-const createButton = document.querySelector('.create-button');
+
+
 
 function showListModal() {
     const modal = document.getElementById('create-list-modal')
@@ -97,11 +119,21 @@ function showProjectModal() {
     const modal = document.getElementById('create-project-modal')
     modal.style.display = 'block';
 }
+const createButton = document.querySelector('.create-button');
+createButton.addEventListener('click', function() {
+    if(isProject) {
+        showListModal();
+    } else {
+        showProjectModal();
+    }
+})
 
+console.log(allProjects.currentProject);
 
 const form = document.getElementById('create-list-form');
 
 form.addEventListener("submit", function(event) {
+    const modal = document.querySelector('.modal');
     const itemInputs = document.getElementsByClassName('item');
     
     event.preventDefault();
@@ -126,17 +158,23 @@ form.addEventListener("submit", function(event) {
         
         container.appendChild(renderToDoList(todoList))
         
-        closeModal();
+        modal.style.display = 'none'
         
-        console.log(sundayChores)
-        
+
     })
+
+
+  
     
     function openProject(e) {
 
         if(!e.target.classList.contains('project-card')) {
             return
         };
+            isProject = true;
+            isProjects = false;
+            projectsButton.addEventListener('click', handleClick);
+            projectsButton.disabled = false;
             const projectCards = document.getElementsByClassName('project-card');
             for (let card of projectCards) {
                 card.style.display = 'none';
@@ -146,41 +184,60 @@ form.addEventListener("submit", function(event) {
             allProjects.setProject(allProjects.projects[index])
 
     }
-   
+
+const projectForm = document.getElementById('create-project-form');
+
+projectForm.addEventListener('submit', function(event) {
+    const modal = document.getElementById('create-project-modal');
     
-    const closeButton = document.querySelector('.close-modal');
-    const removeButton = document.querySelector('.close-list')
-    let selectedProject = document.querySelector('.project');
-    let projectsContainer = document.querySelector('.project-container');
-    // createButton.addEventListener("click", showListModal);
+    event.preventDefault();
+    
+      const formData = new FormData(projectForm);
+      
+      const project = new allProjects.Project(formData.get('name'));
+      allProjects.addProject(project);
+    
+      renderProjectInput(project);
+    
+      modal.style.display = 'none';  
+    });
+    
+    
+    
+
+    // // createButton.addEventListener("click", showListModal);
+    // createButton.addEventListener("click", showProjectModal);
     
     
     
     
     function removeListCard(e) {
-
+        
         if(!e.target.classList.contains('close-list')) {
             return;
         }
-
-            if(e.target.closest('div').classList.contains('list-card')) {
-
+        
+        if(e.target.closest('div').classList.contains('list-card')) {
+            
             const btn = e.target;
             const listId = parseInt(btn.closest('div').id, 10);
             allProjects.currentProject.getCurrentProject().removeList(listId);
             btn.closest('div').remove();
             console.log(sundayChores.todoLists);
-            }
-
-            else if(e.target.closest('div').classList.contains('project-card')) {
-                const btn = e.target;
-                const projectId = parseInt(btn.closest('div').id, 10);
-                allProjects.removeProject(projectId)
-                btn.closest('div').remove();
-                console.log(allProjects.projects)
-            }    
+        }
+        
+        else if(e.target.closest('div').classList.contains('project-card')) {
+            const btn = e.target;
+            const projectId = parseInt(btn.closest('div').id, 10);
+            allProjects.removeProject(projectId)
+            btn.closest('div').remove();
+            console.log(allProjects.projects)
+        }    
     }
-
-    selectedProject.addEventListener("click", removeListCard)
     
+    let selectedProject = document.querySelector('.project');
+    let projectsContainer = document.querySelector('.project-container');
+    selectedProject.addEventListener("click", removeListCard)
     projectsContainer.addEventListener('click', openProject)
+
+})()
