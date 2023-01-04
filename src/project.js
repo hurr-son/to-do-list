@@ -54,7 +54,6 @@ class Projects {
       
     }
     
-  
     displayProjects() {
       console.log("Projects:");
       this.projects.forEach(function(project) {
