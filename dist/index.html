@@ -1,152 +1,170 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="main.js" defer></script>
     <title>To-Do List</title>
-</head>
-<body>
-  <nav class="vertical-nav">
-      <ul>
-      </ul>
+  </head>
+  <body>
+    <nav class="vertical-nav">
+      <ul></ul>
     </nav>
     <nav class="horizontal-nav">
       <ul>
         <li><h1>I've got stuff to do</h1></li>
         <li><a href="#" id="projects">Projects</a></li>
-        
       </ul>
     </nav>
     <h3 class="project-title">project title</h3>
     <div id="content"></div>
-    
-      <div class="lists-container project project-container">
-        <div class="list-card default-card">
-          <span class="close-list">&times;</span>
-          <h3 class="list-title">Title</h3>
-            <span>Description: Things that I really need to do.</span>
-            <span>Due: XX-XX-XXXX</span>
-            <span>Priority: Low-High</span>
-            <ul class="list-items">
-              <li>Call Mom</li>
-              <li>Take out the trash</li>
-              <li>Dinner at 5pm</li>
-            </ul>
-            <button type="button" class="edit-button">Edit</button>
-          </div>
+
+    <div class="lists-container project project-container">
+      <div class="list-card default-card">
+        <span class="close-list">&times;</span>
+        <h3 class="list-title">Title</h3>
+        <span>Description: Things that I really need to do.</span>
+        <span>Due: XX-XX-XXXX</span>
+        <span>Priority: Low-High</span>
+        <ul class="list-items">
+          <li>Call Mom</li>
+          <li>Take out the trash</li>
+          <li>Dinner at 5pm</li>
+        </ul>
+        <button type="button" class="edit-button">Edit</button>
       </div>
-      <!-- Modal element for todo list creation -->
-        <div id="create-list-modal" class="modal">
-          <!-- Modal content -->
-          <div class="modal-content">
-            <!-- Close button -->
-            <span class="close-modal">&times;</span>
-            <!-- Form element -->
-            <form id="create-list-form">
-              <!-- Name input field -->
-              <label for="name">Name:</label>
-              <input type="text" id="name" name="name" required>        
-              <label for="description">Description:</label>
-              <textarea id="description" name="description"></textarea>
-              <!-- Radio buttons for the priority element -->
-              <label for="priority">Priority:</label>
-              
-              <input type="radio" id="anytime" name="priority" value="Anytime" checked>
-              <label for="anytime">Anytime</label>
-              
-              <input type="radio" id="can-wait" name="priority" value="Can wait">
-              <label for="can-wait">Can wait</label>
-              
-              <input type="radio" id="today" name="priority" value="Today">
-              <label for="today">Today</label>
-              
-              <input type="radio" id="immediately" name="priority" value="Immediately">
-              <label for="immediately">Immediately</label>
+    </div>
+    <!-- Modal element for todo list creation -->
+    <div id="create-list-modal" class="modal">
+      <!-- Modal content -->
+      <div class="modal-content">
+        <!-- Close button -->
+        <span class="close-modal">&times;</span>
+        <!-- Form element -->
+        <form id="create-list-form">
+          <!-- Name input field -->
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" required />
+          <label for="description">Description:</label>
+          <textarea id="description" name="description"></textarea>
+          <!-- Radio buttons for the priority element -->
+          <label for="priority">Priority:</label>
+          <input
+            type="radio"
+            id="anytime"
+            name="priority"
+            value="Anytime"
+            checked
+          />
+          <label for="anytime">Anytime</label>
 
-              <!-- Due date input field -->
-              <label for="due-date">Due date:</label>
-              <input type="date" id="due-date" name="due-date">
-              
-              <div id="add-item-input">
-                <label for="items" class="label">Item 1</label>
-                <input type="text"  class="item"  name="item-name">
-              </div>
-              
-              <button type="button" id="add-item-button">Add item</button>
-              
-              
-              <!-- Submit button -->
-              <input type="submit" value="Create">
-            </form>
+          <input type="radio" id="can-wait" name="priority" value="Can wait" />
+          <label for="can-wait">Can wait</label>
+
+          <input type="radio" id="today" name="priority" value="Today" />
+          <label for="today">Today</label>
+
+          <input
+            type="radio"
+            id="immediately"
+            name="priority"
+            value="Immediately"
+          />
+          <label for="immediately">Immediately</label>
+
+          <!-- Due date input field -->
+          <label for="due-date">Due date:</label>
+          <input type="date" id="due-date" name="due-date" />
+
+          <div id="add-item-input">
+            <label for="items" class="label">Item 1</label>
+            <input type="text" class="item" name="item-name" />
           </div>
-        </div>
-        <!-- Modal element for todo list editing -->
-        <div id="edit-list-modal" class="modal">
-          <!-- Modal content -->
-          <div class="modal-content">
-            <!-- Close button -->
-            <span class="close-modal">&times;</span>
-            <!-- Form element -->
-            <form id="edit-list-form">
-              <!-- Name input field -->
-              <label for="name">Name:</label>
-              <input type="text" id="edit-name" name="name" required>        
-              <label for="description">Description:</label>
-              <textarea id="edit-description" name="description"></textarea>
-              <!-- Radio buttons for the priority element -->
-              <label for="priority">Priority:</label>
-              
-              <input type="radio" id="edit-anytime" name="priority" value="Anytime" checked>
-              <label for="anytime">Anytime</label>
-              
-              <input type="radio" id="edit-can-wait" name="priority" value="Can wait">
-              <label for="can-wait">Can wait</label>
-              
-              <input type="radio" id="edit-today" name="priority" value="Today">
-              <label for="today">Today</label>
-              
-              <input type="radio" id="edit-immediately" name="priority" value="Immediately">
-              <label for="immediately">Immediately</label>
 
-              <!-- Due date input field -->
-              <label for="due-date">Due date:</label>
-              <input type="date" id="edit-due-date" name="due-date">
-              
-              <div id="add-item-input">
-                <label for="items">Item 1</label>
-                <input type="text"  class="item"  name="item-name">
-              </div>
-              
-              <button type="button" id="add-item-button">Add item</button>
-              
-              
-              <!-- Submit button -->
-              <input type="submit" value="Update">
-            </form>
+          <button type="button" id="add-item-button">Add item</button>
+
+          <!-- Submit button -->
+          <input type="submit" value="Create" />
+        </form>
+      </div>
+    </div>
+    <!-- Modal element for todo list editing -->
+    <div id="edit-list-modal" class="modal">
+      <!-- Modal content -->
+      <div class="modal-content">
+        <!-- Close button -->
+        <span class="close-modal">&times;</span>
+        <!-- Form element -->
+        <form id="edit-list-form">
+          <!-- Name input field -->
+          <label for="name">Name:</label>
+          <input type="text" id="edit-name" name="name" required />
+          <label for="description">Description:</label>
+          <textarea id="edit-description" name="description"></textarea>
+          <!-- Radio buttons for the priority element -->
+          <label for="priority">Priority:</label>
+
+          <input
+            type="radio"
+            id="edit-anytime"
+            name="priority"
+            value="Anytime"
+            checked
+          />
+          <label for="anytime">Anytime</label>
+
+          <input
+            type="radio"
+            id="edit-can-wait"
+            name="priority"
+            value="Can wait"
+          />
+          <label for="can-wait">Can wait</label>
+
+          <input type="radio" id="edit-today" name="priority" value="Today" />
+          <label for="today">Today</label>
+
+          <input
+            type="radio"
+            id="edit-immediately"
+            name="priority"
+            value="Immediately"
+          />
+          <label for="immediately">Immediately</label>
+
+          <!-- Due date input field -->
+          <label for="due-date">Due date:</label>
+          <input type="date" id="edit-due-date" name="due-date" />
+
+          <div id="add-item-input">
+            <label for="items">Item 1</label>
+            <input type="text" class="item" name="item-name" />
           </div>
-        </div>
-      <!-- Modal element for project creation -->
-        <div id="create-project-modal" class="modal project-modal">
-          <!-- Modal content -->
-          <div class="project-modal-content">
-            <!-- Close button -->
-            <span class="close-modal">&times;</span>
-            <!-- Form element -->
-            <form id="create-project-form">
-              <!-- Name input field -->
-              <label for="name">Name:</label>
-              <input type="text" id="name" name="name" required>   
-              
-              <!-- Submit button -->
-              <input type="submit" value="Create">
-            </form>
-          </div>
-        </div>
 
+          <button type="button" id="add-item-button">Add item</button>
 
+          <!-- Submit button -->
+          <input type="submit" value="Update" />
+        </form>
+      </div>
+    </div>
+    <!-- Modal element for project creation -->
+    <div id="create-project-modal" class="modal project-modal">
+      <!-- Modal content -->
+      <div class="project-modal-content">
+        <!-- Close button -->
+        <span class="close-modal">&times;</span>
+        <!-- Form element -->
+        <form id="create-project-form">
+          <!-- Name input field -->
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" required />
 
-      
-</body>
+          <!-- Submit button -->
+          <input type="submit" value="Create" />
+        </form>
+      </div>
+    </div>
+  </body>
 </html>
