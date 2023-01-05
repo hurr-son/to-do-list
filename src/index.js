@@ -74,23 +74,28 @@ import {
     itemInputsContainer.appendChild(newInput);
   });
 
-  const editModal = document.getElementById("edit-list-modal");
-
+  const editListModal = document.getElementById("edit-list-modal");
+  const editProjectModal = document.getElementById("edit-project-modal");
   function editList(e) {
-    if (!e.target.classList.contains("edit-button")) {
+    if (!e.target.classList.contains("list-card")) {
       return;
     }
 
-    const btn = e.target;
-    btn.addEventListener("click", function (e) {
-      editModal.style.display = "block";
+    const listCard = e.target;
+    listCard.addEventListener("click", function (e) {
+      editListModal.style.display = "block";
     });
   }
+  function editProject(e) {
+    if (!e.target.classList.contains("project-card")) {
+      return;
+    }
 
-  //   function hideDefaultCard() {
-  //     const defaultCard = document.querySelector(".default-card");
-  //     defaultCard.style.display = "none";
-  //   }
+    const projectCard = e.target;
+    projectCard.addEventListener("click", function (e) {
+      editProjectModal.style.display = "block";
+    });
+  }
 
   function removeProjectLists() {
     const listCards = document.getElementsByClassName("list-card");
@@ -155,8 +160,6 @@ import {
       showProjectModal();
     }
   });
-
-  console.log(allProjects.currentProject);
 
   const form = document.getElementById("create-list-form");
 
