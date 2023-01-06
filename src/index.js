@@ -53,6 +53,34 @@ import {
 
   allProjects.setProject(sundayChores);
 
+  container.addEventListener("click", (e) => {
+    if (e.target.classList.contains("edit-button")) {
+      const viewCard = document.querySelector(".view-card");
+      const editCard = document.querySelector(".edit-card");
+
+      container.setAttribute("data-state", "edit");
+
+      viewCard.style.display = "none";
+      editCard.style.display = "flex";
+    } else if (e.target.classList.contains("cancel-button")) {
+      const viewCard = document.querySelector(".view-card");
+      const editCard = document.querySelector(".edit-card");
+
+      container.setAttribute("data-state", "default");
+
+      viewCard.style.display = "flex";
+      editCard.style.display = "none";
+    } else if (e.target.classList.contains("save-button")) {
+      const viewCard = document.querySelector(".view-card");
+      const editCard = document.querySelector(".edit-card");
+
+      container.setAttribute("data-state", "default");
+
+      viewCard.style.display = "flex";
+      editCard.style.display = "none";
+    }
+  });
+
   const addItemButton = document.getElementById("add-item-button");
 
   addItemButton.addEventListener("click", function () {
@@ -74,7 +102,7 @@ import {
     itemInputsContainer.appendChild(newInput);
   });
 
-  const editListModal = document.getElementById("edit-list-modal");
+  // const editListModal = document.getElementById("edit-list-modal");
   const editProjectModal = document.getElementById("edit-project-modal");
   function editList(e) {
     if (!e.target.classList.contains("list-card")) {
@@ -200,7 +228,7 @@ import {
   });
 
   function openProject(e) {
-    if (!e.target.classList.contains("project-card")) {
+    if (!e.target.classList.contains("open-button")) {
       return;
     }
     isProject = true;
@@ -218,6 +246,7 @@ import {
   }
 
   const projectForm = document.getElementById("create-project-form");
+  console.log(projectForm);
 
   projectForm.addEventListener("submit", function (event) {
     const modal = document.getElementById("create-project-modal");
