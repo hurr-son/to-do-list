@@ -220,6 +220,7 @@ import {
     }
 
     container.appendChild(renderToDoList(todoList));
+    container.appendChild(renderEditModeCard(renderToDoList(todoList)));
 
     modal.style.display = "none";
 
