@@ -3,6 +3,7 @@ import { Projects } from "./project";
 function renderToDoList(list) {
   const listCard = document.createElement("div");
   listCard.className = "list-card";
+  listCard.classList.add("view-card");
   listCard.id = list.id;
 
   const closeButton = document.createElement("span");
@@ -17,22 +18,25 @@ function renderToDoList(list) {
   listCard.appendChild(heading);
 
   const descSpan = document.createElement("span");
-  descSpan.innerHTML = `Description: ${list.description}`;
+  descSpan.innerHTML = `${list.description}`;
+  descSpan.className = "description";
   listCard.appendChild(descSpan);
 
   const dueDateSpan = document.createElement("span");
-  dueDateSpan.innerHTML = `Due: ${list.dueDate}`;
+  dueDateSpan.innerHTML = `${list.dueDate}`;
+  dueDateSpan.className = "due-date";
   listCard.appendChild(dueDateSpan);
 
   const prioritySpan = document.createElement("span");
-  prioritySpan.innerHTML = `Priority: ${list.priority}`;
+  prioritySpan.innerHTML = `${list.priority}`;
+  prioritySpan.className = "priority";
   listCard.appendChild(prioritySpan);
 
   const ul = document.createElement("ul");
   ul.className = "list-items";
 
   list.items.forEach(function (item) {
-    const li = document.createElement("li");
+    const li = document.createElement("ul");
 
     const itemLi = document.createElement("li");
 
@@ -51,6 +55,83 @@ function renderToDoList(list) {
   return listCard;
 }
 
+function renderEditModeCard(listCard) {
+  const editCard = document.createElement("div");
+  editCard.classList.add("list-card", "edit-card");
+  editCard.style.display = "none";
+  editCard.id = listCard.id;
+
+  const title = listCard.querySelector(".list-title");
+  const description = listCard.querySelector(".description");
+  const dueDate = listCard.querySelector(".due-date");
+  const priority = listCard.querySelector(".priority");
+  const listItems = listCard.querySelectorAll(".list-items li");
+
+  const titleInput = document.createElement("input");
+  titleInput.classList.add("edit-list-title");
+  titleInput.value = title.textContent;
+
+  const descriptionInput = document.createElement("textarea");
+  descriptionInput.classList.add("edit-list-description");
+  descriptionInput.value = description.innerHTML;
+  console.log(description);
+
+  const dueDateInput = document.createElement("input");
+  dueDateInput.classList.add("edit-list-due-date");
+  dueDateInput.type = "date";
+  dueDateInput.value = dueDate.innerHTML;
+  console.log(typeof dueDate.innerHTML);
+
+  const priorityInput = document.createElement("select");
+  priorityInput.classList.add("edit-list-priority");
+  priorityInput.innerHTML = `
+    <option value="Anytime" ${
+      priority === "Anytime" ? "selected" : ""
+    }>Anytime</option>
+    <option value="Can wait" ${
+      priority === "Can wait" ? "selected" : ""
+    }>Can wait</option>
+    <option value="Today" ${
+      priority === "Today" ? "selected" : ""
+    }>Today</option>
+    <option value="Immediately" ${
+      priority === "Immediately" ? "selected" : ""
+    }>Immediately</option>
+  `;
+
+  priorityInput.value = priority.innerHTML;
+
+  const listItemsInput = document.createElement("ul");
+  listItemsInput.classList.add("edit-list-items");
+
+  listItems.forEach((item) => {
+    const listItemInput = document.createElement("li");
+    const input = document.createElement("input");
+    input.value = item.textContent;
+    console.log(item);
+    listItemInput.appendChild(input);
+    listItemsInput.appendChild(listItemInput);
+  });
+
+  const saveButton = document.createElement("button");
+  saveButton.classList.add("save-button");
+  saveButton.textContent = "Save";
+
+  const cancelButton = document.createElement("button");
+  cancelButton.classList.add("cancel-button");
+  cancelButton.textContent = "Cancel";
+
+  editCard.appendChild(titleInput);
+  editCard.appendChild(descriptionInput);
+  editCard.appendChild(dueDateInput);
+  editCard.appendChild(priorityInput);
+  editCard.appendChild(listItemsInput);
+  editCard.appendChild(saveButton);
+  editCard.appendChild(cancelButton);
+
+  return editCard;
+}
+
 function renderCreateButton() {
   const createButton = document.createElement("div");
   createButton.className = "create-button";
@@ -66,6 +147,7 @@ function renderProject(project) {
 
   project.todoLists.forEach((list) => {
     container.appendChild(renderToDoList(list));
+    container.appendChild(renderEditModeCard(renderToDoList(list)));
   });
 }
 
@@ -82,6 +164,12 @@ function renderProjectInput(project) {
 
   const heading = document.createElement("h3");
   heading.innerHTML = project.name;
+
+  const openButton = document.createElement("button");
+  openButton.type = "button";
+  openButton.innerHTML = "Open";
+  openButton.className = "open-button";
+  projectsWrapper.appendChild(openButton);
 
   const list = document.createElement("ul");
   projectsWrapper.appendChild(closeButton);
@@ -116,6 +204,13 @@ function renderAllProjects(projects) {
     projectsWrapper.appendChild(heading);
     projectsWrapper.appendChild(list);
 
+    const openButton = document.createElement("button");
+    openButton.type = "button";
+    openButton.innerHTML = "Open";
+    openButton.className = "open-button";
+    openButton.id = project.id;
+    projectsWrapper.appendChild(openButton);
+
     project.todoLists.forEach(function (todoList) {
       const listItem = document.createElement("li");
       listItem.innerHTML = todoList.name;
@@ -132,4 +227,5 @@ export {
   renderAllProjects,
   renderCreateButton,
   renderProjectInput,
+  renderEditModeCard,
 };
