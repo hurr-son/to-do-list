@@ -7,6 +7,7 @@ import {
   renderAllProjects,
   renderCreateButton,
   renderProjectInput,
+  renderEditModeCard,
 } from "./todo-dom";
 
 (function () {
@@ -27,15 +28,21 @@ import {
   let groceryList = new ToDoList(
     "Groceries",
     "List for Sunday grocery run",
-    "01-01-2023",
-    "High",
+    "2002-02-02",
+    "Can wait",
     "Don't forget to say high to Jerry at the front desk. You guys haven't seen each other in a while."
   );
   groceryList.addItem("Eggs");
   groceryList.addItem("Bread");
   groceryList.addItem("Milk");
 
-  let houseChores = new ToDoList("House Chores", "", "01-01-2023", "High", "");
+  let houseChores = new ToDoList(
+    "House Chores",
+    "",
+    "2010-01-04",
+    "Anytime",
+    ""
+  );
   houseChores.addItem("Do laundry");
   houseChores.addItem("Take the trash out");
   houseChores.addItem("Clean the bathroom");
@@ -54,31 +61,40 @@ import {
   allProjects.setProject(sundayChores);
 
   container.addEventListener("click", (e) => {
-    if (e.target.classList.contains("edit-button")) {
-      const viewCard = document.querySelector(".view-card");
-      const editCard = document.querySelector(".edit-card");
+    const listContainer = e.target.closest(".lists-container");
+    if (!listContainer) return;
 
-      container.setAttribute("data-state", "edit");
+    const viewCards = listContainer.querySelectorAll(".view-card");
+    const editCards = listContainer.querySelectorAll(".edit-card");
+    const parentId = e.target.parentNode.id;
 
-      viewCard.style.display = "none";
-      editCard.style.display = "flex";
-    } else if (e.target.classList.contains("cancel-button")) {
-      const viewCard = document.querySelector(".view-card");
-      const editCard = document.querySelector(".edit-card");
+    viewCards.forEach((viewCard) => {
+      if (viewCard.id === parentId) {
+        if (e.target.classList.contains("edit-button")) {
+          listContainer.setAttribute("data-state", "edit");
+          viewCard.style.display = "none";
+        } else if (e.target.classList.contains("cancel-button")) {
+          listContainer.setAttribute("data-state", "default");
+          viewCard.style.display = "flex";
+        } else if (e.target.classList.contains("save-button")) {
+          listContainer.setAttribute("data-state", "default");
+          viewCard.style.display = "flex";
+        }
+      }
+    });
 
-      container.setAttribute("data-state", "default");
-
-      viewCard.style.display = "flex";
-      editCard.style.display = "none";
-    } else if (e.target.classList.contains("save-button")) {
-      const viewCard = document.querySelector(".view-card");
-      const editCard = document.querySelector(".edit-card");
-
-      container.setAttribute("data-state", "default");
-
-      viewCard.style.display = "flex";
-      editCard.style.display = "none";
-    }
+    editCards.forEach((editCard) => {
+      if (editCard.id === parentId) {
+        if (e.target.classList.contains("save-button")) {
+          listContainer.setAttribute("data-state", "default");
+          editCard.style.display = "none";
+        } else if (e.target.classList.contains("edit-button")) {
+          editCard.style.display = "flex";
+        } else if (e.target.classList.contains("cancel-button")) {
+          editCard.style.display = "none";
+        }
+      }
+    });
   });
 
   const addItemButton = document.getElementById("add-item-button");
@@ -102,18 +118,6 @@ import {
     itemInputsContainer.appendChild(newInput);
   });
 
-  // const editListModal = document.getElementById("edit-list-modal");
-  const editProjectModal = document.getElementById("edit-project-modal");
-  function editList(e) {
-    if (!e.target.classList.contains("list-card")) {
-      return;
-    }
-
-    const listCard = e.target;
-    listCard.addEventListener("click", function (e) {
-      editListModal.style.display = "block";
-    });
-  }
   function editProject(e) {
     if (!e.target.classList.contains("project-card")) {
       return;
@@ -285,8 +289,9 @@ import {
       console.log(allProjects.projects);
     }
   }
+  const defaultCard = document.querySelector(".default-card");
+  // console.log(renderEditModeCard(defaultCard));
 
   selectedProject.addEventListener("click", removeListCard);
-  selectedProject.addEventListener("click", editList);
   selectedProject.addEventListener("click", openProject);
 })();
