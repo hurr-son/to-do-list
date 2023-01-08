@@ -49,12 +49,13 @@ import {
   houseChores.addItem("Vacuum the apartment");
 
   let mondayHomework = new ToDoList("monHW", "", "", "", "");
+  let tuesdayHomework = new ToDoList("tuesHW", "", "", "", "");
 
   sundayChores.addList(groceryList);
   sundayChores.addList(houseChores);
 
   homework.addList(mondayHomework);
-  homework.addList(mondayHomework);
+  homework.addList(tuesdayHomework);
 
   renderProject(sundayChores);
 
@@ -95,6 +96,60 @@ import {
         }
       }
     });
+  });
+
+  container.addEventListener("click", (e) => {
+    if (e.target.classList.contains("save-button")) {
+      const listContainer = e.target.closest(".lists-container");
+      const parentId = parseInt(e.target.parentNode.id);
+      const lists = allProjects.currentProject.getCurrentProject().todoLists;
+      const list = lists.find((list) => list.id === parentId);
+      const editCard = listContainer.querySelector(
+        `.edit-card[id="${parentId}"]`
+      );
+      const listItemInputs = editCard.querySelectorAll(
+        ".edit-list-items li input"
+      );
+
+      const newItems = [];
+      for (let i = 0; i < listItemInputs.length; i++) {
+        if (listItemInputs[i].value !== "") {
+          newItems.push(listItemInputs[i].value);
+        } else {
+          listItemInputs[i].parentNode.remove();
+        }
+      }
+
+      for (let i = 0; i < newItems.length; i++) {
+        list.editItem(list.items[i], newItems[i]);
+      }
+
+      console.log(newItems);
+
+      list.updateData(
+        editCard.querySelector(".edit-list-title").value,
+        editCard.querySelector(".edit-list-description").value,
+        editCard.querySelector(".edit-list-due-date").value,
+        editCard.querySelector(".edit-list-priority").value
+      );
+
+      const viewCard = listContainer.querySelector(
+        `.view-card[id="${parentId}"]`
+      );
+
+      viewCard.querySelector(".list-title").textContent = list.name;
+      viewCard.querySelector(".description").textContent = list.description;
+      viewCard.querySelector(".due-date").textContent = list.dueDate;
+      viewCard.querySelector(".priority").textContent = list.priority;
+
+      const listItemContainer = viewCard.querySelector(".list-items");
+      listItemContainer.innerHTML = "";
+      for (let item of newItems) {
+        if (item !== "") {
+          listItemContainer.innerHTML += `<li>${item}</li>`;
+        }
+      }
+    }
   });
 
   const addItemButton = document.getElementById("add-item-button");
