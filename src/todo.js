@@ -11,12 +11,25 @@ function ToDoList(name, description, dueDate, priority, notes) {
     this.items.push(item);
   };
 
+  this.editItem = function (item, newItem) {
+    let index = this.items.indexOf(item);
+    if (index > -1) {
+      this.items[index] = newItem;
+    }
+  };
+
   this.removeItem = function (item) {
     let index = this.items.indexOf(item);
     if (index > -1) {
       this.items.splice(index, 1);
     }
-    console.log(`Removed: ${item}`);
+  };
+
+  this.updateData = function (name, description, dueDate, priority) {
+    this.name = name;
+    this.description = description;
+    this.dueDate = dueDate;
+    this.priority = priority;
   };
 
   this.setCompleted = function () {
