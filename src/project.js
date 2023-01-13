@@ -56,6 +56,19 @@ class Projects {
       project.displayLists();
     });
   }
+
+  saveData() {
+    const data = JSON.stringify(this.projects);
+
+    localStorage.setItem("projects", data);
+  }
+
+  loadData() {
+    const data = localStorage.getItem("projects");
+
+    this.projects = JSON.parse(data) || [];
+    return this.projects;
+  }
 }
 
 class CurrentProject {
@@ -68,6 +81,19 @@ class CurrentProject {
   }
 
   getCurrentProject() {
+    return this.currentProject;
+  }
+
+  saveData() {
+    const data = JSON.stringify(this.currentProject);
+
+    localStorage.setItem("currentProject", data);
+  }
+
+  loadData() {
+    const data = localStorage.getItem("currentProject");
+
+    this.currentProject = JSON.parse(data);
     return this.currentProject;
   }
 }
