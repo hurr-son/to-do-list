@@ -332,10 +332,17 @@ import {
     }
 
     if (e.target.closest("div").classList.contains("list-card")) {
+      const editCards = document.querySelectorAll(".edit-card");
       const btn = e.target;
       const listId = parseInt(btn.closest("div").id, 10);
       allProjects.currentProject.getCurrentProject().removeList(listId);
+      editCards.forEach((card) => {
+        if (card.id == btn.id) {
+          card.remove();
+        }
+      });
       btn.closest("div").remove();
+
       console.log(sundayChores.todoLists);
     } else if (e.target.closest("div").classList.contains("project-card")) {
       const btn = e.target;
